@@ -56,12 +56,13 @@ body::before{
 <body>
 
 <!-- 🎧 자동재생 가능하게 muted 추가 -->
-<audio id="bgm"
+<audio
+id="bgm"
 src="https://www.image2url.com/r2/default/audio/1776236142738-5549cf45-0c3c-4ccf-a763-862634e2b2f3.mp3"
 autoplay
 loop
-muted
-playsinline>
+playsinline
+preload="auto">
 </audio>
 
 <div class="container">
@@ -73,22 +74,36 @@ playsinline>
 
 <script>
 const bgm = document.getElementById("bgm");
+bgm.volume = 0.25;
 
-/* 🔥 페이지 열리자마자 자동재생 */
-window.addEventListener("load", async () => {
-    try{
-        await bgm.play();
+/* 페이지 열리자마자 재생 */
+window.addEventListener("DOMContentLoaded", () => {
+    const playPromise = bgm.play();
 
-        /* 잠시 후 음소거 해제 + 볼륨 설정 */
-        setTimeout(()=>{
-            bgm.muted = false;
-            bgm.volume = 0.25;
-        },500);
+    if (playPromise !== undefined) {
+        playPromise
+        .then(()=>{})
+        .catch(()=>{
 
-    }catch(e){
-        console.log("자동재생 제한됨");
+            /* 실패하면 강제 재시도 */
+            setTimeout(()=>{
+                bgm.play();
+            },300);
+
+            setTimeout(()=>{
+                bgm.play();
+            },1000);
+        });
     }
 });
+
+/* 화면 보이면 또 재생 */
+document.addEventListener("visibilitychange", ()=>{
+    if(!document.hidden){
+        bgm.play();
+    }
+});
+</script>
 
 /* 🌫️ 스크롤 배경 변화 */
 window.addEventListener("scroll", ()=>{
