@@ -74,7 +74,7 @@ muted
 playsinline
 loop
 preload="auto">
-<source src="https://kong062765-cloud.github.io/YOUWON.com/bgm.mp3" type="audio/mpeg">
+<source src="https://raw.githubusercontent.com/kong062765-cloud/YOUWON.com/main/bgm.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -100,20 +100,49 @@ preload="auto">
 <script>
 const bgm = document.getElementById("bgm");
 
-function playMusic(){
-    bgm.muted = false;
-    bgm.volume = 0.25;
-    bgm.play().catch(()=>{});
+/* 접속 시 자동 재생 시도 */
+window.addEventListener("load", async () => {
+    bgm.volume = 0;
+    bgm.muted = true;
+
+    try{
+        await bgm.play();
+
+        setTimeout(() => {
+            bgm.muted = false;
+            fadeInMusic();
+        }, 300);
+
+    }catch(e){}
+});
+
+/* 부드럽게 볼륨 증가 */
+function fadeInMusic(){
+    let vol = 0;
+    const target = 0.25;
+
+    const fade = setInterval(() => {
+        vol += 0.02;
+
+        if(vol >= target){
+            vol = target;
+            clearInterval(fade);
+        }
+
+        bgm.volume = vol;
+    }, 120);
 }
 
-window.addEventListener("load", playMusic);
+/* 마우스 움직이면 바로 시작 */
+function unlockMusic(){
+    bgm.muted = false;
+    bgm.play().catch(()=>{});
+    fadeInMusic();
+}
 
-document.addEventListener("mousemove", playMusic, { once:true });
-document.addEventListener("click", playMusic, { once:true });
-document.addEventListener("scroll", playMusic, { once:true });
-document.addEventListener("touchstart", playMusic, { once:true });
-document.addEventListener("keydown", playMusic, { once:true });
+document.addEventListener("mousemove", unlockMusic, { once:true });
+document.addEventListener("scroll", unlockMusic, { once:true });
+document.addEventListener("touchstart", unlockMusic, { once:true });
 </script>
-
 </body>
 </html>
