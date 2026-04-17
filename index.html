@@ -69,9 +69,12 @@ body::before{
 
 <audio
 id="bgm"
-src="https://kong062765-cloud.github.io/YOUWON.com/bgm.mp3"
+autoplay
+muted
+playsinline
 loop
 preload="auto">
+<source src="https://kong062765-cloud.github.io/YOUWON.com/bgm.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -97,15 +100,19 @@ preload="auto">
 <script>
 const bgm = document.getElementById("bgm");
 
-function startMusic(){
-    bgm.volume = 0.18;
+function playMusic(){
+    bgm.muted = false;
+    bgm.volume = 0.25;
     bgm.play().catch(()=>{});
 }
 
-window.addEventListener("mousemove", startMusic, { once:true });
-window.addEventListener("click", startMusic, { once:true });
-window.addEventListener("wheel", startMusic, { once:true });
-window.addEventListener("touchstart", startMusic, { once:true });
+window.addEventListener("load", playMusic);
+
+document.addEventListener("mousemove", playMusic, { once:true });
+document.addEventListener("click", playMusic, { once:true });
+document.addEventListener("scroll", playMusic, { once:true });
+document.addEventListener("touchstart", playMusic, { once:true });
+document.addEventListener("keydown", playMusic, { once:true });
 </script>
 
 </body>
