@@ -37,6 +37,18 @@ function unlockMusic(){
     bgm.play().catch(()=>{});
     fadeInMusic();
 }
+/* 🌫️ 스크롤 배경 변화 */
+window.addEventListener("scroll", ()=>{
+    const scrollY = window.scrollY;
+    const max = document.body.scrollHeight - window.innerHeight;
+    const ratio = scrollY / max;
+    const opacity = 0.3 + (ratio * 0.45);
+
+    document.styleSheets[1].addRule(
+        "body::before",
+        "background: rgba(0,0,0,"+opacity+")"
+    );
+});
 
 document.addEventListener("mousemove", unlockMusic, { once:true });
 document.addEventListener("scroll", unlockMusic, { once:true });
