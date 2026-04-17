@@ -100,20 +100,44 @@ preload="auto">
 <script>
 const bgm = document.getElementById("bgm");
 
-function playMusic(){
-    bgm.muted = false;
-    bgm.volume = 0.09;
-    bgm.play().catch(()=>{});
+/* 접속 시 자동 시도 */
+window.addEventListener("load", async () => {
+    bgm.volume = 0;
+
+    try{
+        await bgm.play();
+
+        setTimeout(() => {
+            fadeInMusic();
+        }, 300);
+
+    }catch(e){}
+});
+
+/* 부드럽게 볼륨 올라감 */
+function fadeInMusic(){
+    let vol = 0;
+    const target = 0.25;
+
+    const fade = setInterval(() => {
+        vol += 0.02;
+
+        if(vol >= target){
+            vol = target;
+            clearInterval(fade);
+        }
+
+        bgm.volume = vol;
+    }, 120);
 }
 
-window.addEventListener("load", playMusic);
+/* 마우스만 움직여도 즉시 재생 */
+function unlockMusic(){
+    bgm.play().catch(()=>{});
+    fadeInMusic();
+}
 
-document.addEventListener("mousemove", playMusic, { once:true });
-document.addEventListener("click", playMusic, { once:true });
-document.addEventListener("scroll", playMusic, { once:true });
-document.addEventListener("touchstart", playMusic, { once:true });
-document.addEventListener("keydown", playMusic, { once:true });
+document.addEventListener("mousemove", unlockMusic, { once:true });
+document.addEventListener("scroll", unlockMusic, { once:true });
+document.addEventListener("touchstart", unlockMusic, { once:true });
 </script>
-
-</body>
-</html>
