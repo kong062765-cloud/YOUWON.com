@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YOUWON</title>
+<title>소설 페이지</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -86,21 +86,14 @@ body::before{
 </div>
 
 <script>
+/* 🎧 클릭 시 음악 재생 */
 const bgm = document.getElementById("bgm");
 
-/* 🎧 자동 재생 시도 */
-function startBGM(){
-    bgm.volume = 0.05;
+function playMusic(){
+    bgm.volume = 0.25; // 🔥 25%로 낮춤
     bgm.play().catch(()=>{});
 }
-
-/* 1️⃣ 페이지 로드 시 시도 */
-window.addEventListener("load", startBGM);
-
-/* 2️⃣ 실패 대비: 첫 상호작용 시 재생 */
-["click","scroll","touchstart"].forEach(event=>{
-    document.addEventListener(event, startBGM, { once:true });
-});
+document.addEventListener("click", playMusic, { once: true });
 
 /* 🌫️ 스크롤 배경 변화 */
 window.addEventListener("scroll", ()=>{
