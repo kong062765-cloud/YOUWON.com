@@ -5,10 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YOUWON</title>
 
+<!— ✅ 링크 ON / OFF 기능 —>
+<script>
+const OPEN = false;
+const TARGET = "https://여기에네원래링크.com";
+
+if (OPEN) {
+    location.href = TARGET;
+}
+</script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     font-family:'Pretendard',sans-serif;
@@ -34,7 +48,6 @@ body::before{
     z-index:1;
 }
 
-/* 📖 소설 스타일 */
 .novel{
     font-size:17px;
     line-height:2.1;
@@ -43,13 +56,11 @@ body::before{
     white-space:pre-wrap;
 }
 
-/* 문단 */
 .novel p{
     text-indent:1.6em;
     margin-bottom:1.2em;
 }
 
-/* 첫 문단 */
 .novel p:first-child{
     text-indent:0;
 }
@@ -59,7 +70,12 @@ body::before{
 <body>
 
 <!-- 🎧 배경 음악 -->
-<audio id="bgm" src="https://www.image2url.com/r2/default/audio/1776236142738-5549cf45-0c3c-4ccf-a763-862634e2b2f3.mp3" loop></audio>
+<audio
+id="bgm"
+src="https://www.image2url.com/r2/default/audio/1776236142738-5549cf45-0c3c-4ccf-a763-862634e2b2f3.mp3"
+loop
+preload="auto">
+</audio>
 
 <div class="container">
 
@@ -81,38 +97,38 @@ body::before{
 </p>나의 고독이 네가 살아있을지도 모른다는 희망을 무참히 살해했다. 새벽의 고요함과 감도는 적막이 나를 집어삼켰다. 눈이 내리는 바람 사이로 우리를 찾는 소리가 들렸다. 네가 당연히 살아있을 것이라고 믿는 이들이, 우리가 함께라는 것을 보고 기억하는 사람들이. 구원을 바라는 많은 사람들이 모인 자리에도 내가 서있을 자리는 없었다. 바라보는 시선에 역겨움이 올라왔다. 이럴 줄 알았으면, 네가 하자는 대로 할걸. 네가 하고 싶은 대로 하게 둘걸. 꽉 다물린 잇새 사이로 후회가 섞인 울음 같은 것이 들렸다. 되돌릴 수 없는 시간에 호흡이 거칠어졌다. 숨을 쉬는 방법이 기억나지 않는다. 무언가에 짓눌린 것처럼 몸을 일으킬 수가 없었다. 이럴 거면 시작도 하지 말걸. 그냥, 너랑 파트너 따위를 하지 말걸. 희망이라는 이름의 댐이 밀려오는 후회로 삽시간에 터져 물 밑 속으로 나를 처박는다. 넝마가 된 심장만이 남아 머릿속을 괴롭혔다. 결국 너를 죽인 것은 나였다. 내가, 너를. 겨우 살아남은 너를 기어코 죽였다. 너의 죽음을 인정하는 것은 자신을 죽이는 것부터 시작했다. 윤예성의 장례식은 나의 장례식이었다. 우리는 시작조차 하지 말아야 했다. 죄책감이 온몸을 짓눌렀다. 또. 또다시. 피로 얼룩진 손바닥이 죄의 무게를 달았다. 무게에 눌린 기침이 다물렸던 입술 사이로 튀어나왔다. 짙은 쇠 맛에 인상을 찌푸리다가, 얼굴을 구기다가, 결국 아무렇게나 절망을 토해냈다. 짙은 혐오감이 올라온다. 신물이 났다.</p>
 
 <p>세상에서 가장 적연寂然한 장례였다.</p>
-</div>
 
+</div>
 </div>
 
 <script>
 const bgm = document.getElementById("bgm");
 
-/* 🎧 자동 재생 시도 */
+/* 🎧 마우스 움직이면 재생 */
 function startBGM(){
     bgm.volume = 0.05;
     bgm.play().catch(()=>{});
 }
 
-/* 1️⃣ 페이지 로드 시 시도 */
-window.addEventListener("load", startBGM);
+/* 마우스 이동 1회만 감지 */
+document.addEventListener("mousemove", startBGM, { once:true });
 
-/* 2️⃣ 실패 대비: 첫 상호작용 시 재생 */
-["click","scroll","touchstart"].forEach(event=>{
-    document.addEventListener(event, startBGM, { once:true });
-});
+/* 터치 기기 대응 */
+document.addEventListener("touchstart", startBGM, { once:true });
 
 /* 🌫️ 스크롤 배경 변화 */
 window.addEventListener("scroll", ()=>{
     const scrollY = window.scrollY;
     const max = document.body.scrollHeight - window.innerHeight;
     const ratio = scrollY / max;
-
     const opacity = 0.3 + (ratio * 0.45);
 
-    document.styleSheets[0].addRule(
+    document.styleSheets[1].addRule(
         "body::before",
         "background: rgba(0,0,0,"+opacity+")"
-    ); 
+    );
 });
 </script>
+
+</body>
+</html>
