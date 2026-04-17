@@ -25,7 +25,7 @@ body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.3);
+    background:var(--overlay, rgba(0,0,0,0.3));
     z-index:0;
     transition:background 0.2s linear;
 }
@@ -73,11 +73,11 @@ preload="auto">
 
 <p>잘못했어.</p>
 
-<p>매서운 바람 소리에 물기가 젖은 목소리가 섞여들어갔다. 네게 닿았을까. 나는 겨우 맞잡은 손을 붙들며 눈 앞에서 사라져가는 너의 모습을 담으려고 노력했다. 차오르는 눈물 때문에 흐릿한 것인지, 수차례 내리던 눈들 때문인지 불확실한 시야에서 점점 흩어져가는 것을 놓지 않으려고 평소에 우습게 여기던 신들에게 수차례 빌었다. 또 너를 잃고 싶지 않아. 혼자가 되고 싶지 않아. 나를 두고 가지마.</p>
+<p>매서운 바람 소리에 물기가 젖은 목소리가 섞여들어갔다. 네게 닿았을까. 나는 겨우 맞잡은 손을 붙들며 눈 앞에서 사라져가는 너의 모습을 담으려고 노력했다.</p>
 
 <p>제발, 제발.... 제발, 윤예성.</p>
 
-<p>그럼에도 사그라든다. 잡고 있던 손끝만이 남았을 때 그가 무언가 말했다. 그 말이 마지막 인사임을 직감했다.</p>
+<p>그럼에도 사그라든다. 잡고 있던 손끝만이 남았을 때 그가 무언가 말했다.</p>
 
 <p>세상에서 가장 적연寂然한 장례였다.</p>
 
@@ -109,16 +109,16 @@ document.addEventListener("visibilitychange", ()=>{
 });
 
 /* 스크롤 배경 변화 */
-window.addEventListener("scroll", ()=>{
+window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
     const max = document.body.scrollHeight - window.innerHeight;
-    const ratio = scrollY / max;
+    const ratio = max > 0 ? scrollY / max : 0;
 
     const opacity = 0.3 + (ratio * 0.45);
 
-    document.styleSheets[0].addRule(
-        "body::before",
-        "background:rgba(0,0,0,"+opacity+")"
+    document.body.style.setProperty(
+        "--overlay",
+        "rgba(0,0,0," + opacity + ")"
     );
 });
 </script>
