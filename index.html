@@ -107,20 +107,6 @@ document.addEventListener("visibilitychange", ()=>{
         playMusic();
     }
 });
-
-/* 스크롤 배경 변화 */
-window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    const max = document.body.scrollHeight - window.innerHeight;
-    const ratio = max > 0 ? scrollY / max : 0;
-
-    const opacity = 0.3 + (ratio * 0.45);
-
-    document.body.style.setProperty(
-        "--overlay",
-        "rgba(0,0,0," + opacity + ")"
-    );
-});
 </script>
 
 </body>
