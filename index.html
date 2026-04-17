@@ -20,49 +20,76 @@ if (OPEN) location.href = TARGET;
     box-sizing:border-box;
 }
 
-body{
-    font-family:'Pretendard',sans-serif;
-    background:url('https://i.imgur.com/UEps7xH.jpg') center/cover fixed;
-    color:#fff;
+html, body{
+    width:100%;
+    min-height:100%;
 }
 
+body{
+    font-family:'Pretendard',sans-serif;
+    background:url('https://i.imgur.com/UEps7xH.jpg') center center / cover fixed;
+    color:#fff;
+    min-height:100vh;
+    overflow-y:auto;
+    position:relative;
+}
+
+/* 어두운 오버레이 */
 body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.38);
+    background:rgba(0,0,0,0.40);
     z-index:0;
 }
 
+/* 본문 영역 */
 .container{
+    width:100%;
     max-width:760px;
-    margin:auto;
-    padding:120px 30px;
+    margin:0 auto;
+    padding:120px 30px 220px;
     position:relative;
-    z-index:1;
+    z-index:2;
 }
 
+/* 글 */
 .novel{
     font-size:17px;
     line-height:2.15;
-    white-space:pre-wrap;
+    white-space:normal;
     word-break:keep-all;
+    overflow:visible;
 }
 
 .novel p{
-    margin-bottom:1.5em;
+    margin-bottom:1.6em;
     text-indent:1.6em;
 }
 
 .novel p:first-child{
     text-indent:0;
 }
+
+/* 모바일 */
+@media (max-width:768px){
+    .container{
+        padding:90px 22px 180px;
+    }
+
+    .novel{
+        font-size:16px;
+        line-height:2;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<audio id="bgm"
+<!-- 배경음악 -->
+<audio
+id="bgm"
 src="https://kong062765-cloud.github.io/YOUWON.com/bgm.mp3"
 loop
 preload="auto">
@@ -100,10 +127,11 @@ function startMusic(){
     bgm.play().catch(()=>{});
 }
 
+/* 마우스 움직이면 음악 시작 */
 window.addEventListener("mousemove", startMusic, { once:true });
 window.addEventListener("click", startMusic, { once:true });
-window.addEventListener("touchstart", startMusic, { once:true });
 window.addEventListener("wheel", startMusic, { once:true });
+window.addEventListener("touchstart", startMusic, { once:true });
 </script>
 
 </body>
