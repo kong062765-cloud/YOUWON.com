@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YOUWON</title>
 
-<!-- ✅ 링크 ON / OFF 기능 (원본 유지 + 깜빡임 해결) -->
+<!-- ✅ 링크 ON / OFF 기능 -->
 <script>
 const OPEN = true;
 const TARGET = "https://kong062765-cloud.github.io/YOUWON.com/";
@@ -28,16 +28,18 @@ body{
     font-family:'Pretendard',sans-serif;
     background:url('https://i.imgur.com/UEps7xH.jpg') center/cover fixed;
     color:#fff;
+    --overlay:0.3;
 }
 
-/* 🌫️ 배경 오버레이 */
+/* 🌫️ 배경 오버레이 (복구 + 안정화) */
 body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.3);
+    background:rgba(0,0,0,var(--overlay));
     z-index:0;
     transition:background 0.2s linear;
+    pointer-events:none;
 }
 
 .container{
@@ -78,7 +80,6 @@ preload="auto">
 </audio>
 
 <div class="container">
-
 <div class="novel">
 
 <p>잘못했어.</p>
@@ -107,18 +108,17 @@ preload="auto">
 <script>
 const bgm = document.getElementById("bgm");
 
-/* 🎧 마우스 움직이면 재생 */
+/* 🎧 최초 상호작용 시 재생 */
 function startBGM(){
     bgm.volume = 0.05;
     bgm.play().catch(()=>{});
 }
 
-/* 최초 1회만 재생 */
 document.addEventListener("mousemove", startBGM, { once:true });
 document.addEventListener("touchstart", startBGM, { once:true });
 document.addEventListener("click", startBGM, { once:true });
 
-/* 🌫️ 스크롤 배경 변화 (원본 유지 + 안정화) */
+/* 🌫️ 스크롤할수록 어두워짐 */
 window.addEventListener("scroll", ()=>{
     const scrollY = window.scrollY;
     const max = document.body.scrollHeight - window.innerHeight;
@@ -126,9 +126,6 @@ window.addEventListener("scroll", ()=>{
     const opacity = 0.3 + (ratio * 0.45);
 
     document.body.style.setProperty("--overlay", opacity);
-    document.querySelector("body::before");
-    document.styleSheets[1].cssRules[1].style.background =
-        "rgba(0,0,0,"+opacity+")";
 });
 </script>
 
